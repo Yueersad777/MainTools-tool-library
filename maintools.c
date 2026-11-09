@@ -3317,7 +3317,7 @@ void tools15_Calculations_Related_To_Line_Sebments(void)
 			
 			formula_x=x2-x1;
 			formula_y=y2-y1;
-			Line_length=sqrt(pow(formula_x,2)+pow(formula_y,2));
+			Line_length=sqrt(pow(formula_x,2)-pow(formula_y,2));
 			if(Line_length<0||Line_length==0)
 			{
 				printf("Such numerical values cannot satisfy practical calculations.\n");
