@@ -1,5 +1,5 @@
 /*
- * Hello World ICS Project
+ * maintools.c - MainTools
  * Copyright (C) 2026 HWmakerAlice
  *
  * This program is free software; you can redistribute it and/or modify
@@ -16,7 +16,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
- 
 #include "maintools.h"
 #define PI 3.1415
 
@@ -288,7 +287,7 @@ void tools1_Basic_Calculator(void)
 			printf("Invalid selection\n");
 			break;
 		}
-	}
+	} 
 	return;
 }
 
@@ -296,99 +295,286 @@ void tools2_Seek_Quadratic_Equations(void)
 {
 	FILE* fp5;
 	float a,b,c,re_b,re_c;
-	float x_1,x_2;
-	float Delta_Discrinant;
-	float formula_2a;
+	float delta;
+	float x1,x2;
 	char file[200];
 	
-	printf("Derivative of quadratic functions\n");
+	printf("Seek quadratic equations\n");
 	printf("new file:");
 	scanf("%s",file);
-	char fule[200]; 
+	char fule[200];
 	sprintf(fule,"%s.txt",file);
 	printf("\n");
-	printf("number a and number b and number c:");
+	printf("Part a and part b and part c:");
 	scanf("%f%f%f",&a,&b,&c);
 	printf("\n");
-	
-	re_b=-1*b;
-	re_c=-1*c;
-	
+	if (fabs(a) < 1e-6)
+	{
+		if (fabs(b) < 1e-6)
+		{
+			printf("Not a valid equation (a=0, b=0)\n");
+		}
+		else
+		{
+			printf("Linear equation: x=%.2f\n", -c / b);
+		}
+		return;   
+	}
 	if(b<0&&c<0)
 	{
-		printf("Quadratic function:%.3fx^2-%.3fx-%.3f\n",a,re_b,re_c);
+		re_b=b*-1;
+		re_c=c*-1;
+		
+		printf("Quadratic equations:0=%.2fx^2-%.2fx-%.2f\n",a,re_b,re_c);
+		delta=pow(b,2)-4*a*c;
+		
+		if(delta<0)
+		{
+			printf("no real solutions\n");
+			
+			fp5=fopen(fule,"w");
+			if(fp5==NULL)
+			{
+				return;
+			}
+			
+			fprintf(fp5,"file:%s\n",file);
+			fprintf(fp5,"Seek quadratic equations\n");
+			fprintf(fp5,"quadratic equations:0=%.2fx^2-%.2fx-%.2f\n",a,re_b,re_c);
+			fprintf(fp5,"Answer:no real solutions\n");
+			
+			fclose(fp5);
+		}
+		else if(delta>0)
+		{
+			x1=(-b+sqrt(delta))/(2*a);
+			x2=(-b-sqrt(delta))/(2*a);
+			
+			printf("Answer:x1=%.2f   x2=%.2f\n",x1,x2);
+			
+			fp5=fopen(fule,"w");
+			if(fp5==NULL)
+			{
+				return;
+			}
+			
+			fprintf(fp5,"file:%s\n",file);
+			fprintf(fp5,"Seek quadratic equations\n");
+			fprintf(fp5,"quadratic equations:0=%.2fx^2-%.2fx-%.2f\n",a,re_b,re_c);
+			fprintf(fp5,"Answer:x1=%.2f   x2=%.2f\n",x1,x2);
+			
+			fclose(fp5);
+		}
+		else if(delta==0)
+		{
+			x1=(-b+sqrt(delta))/(2*a);
+			
+			printf("Answer:x1=x2=%.2f\n",x1);
+			
+			fp5=fopen(fule,"w");
+			if(fp5==NULL)
+			{
+				return;
+			}
+			
+			fprintf(fp5,"file:%s\n",file);
+			fprintf(fp5,"Seek quadratic equations\n");
+			fprintf(fp5,"quadratic equations:0=%.2fx^2-%.2fx-%.2f\n",a,re_b,re_c);
+			fprintf(fp5,"Answer:x1=x2=%.2f\n",x1);
+			
+			fclose(fp5);
+		}
 	}
-	else if(b<0)
+	else if(b>0&&c>0)
 	{
-		printf("Quadratic function:%.3fx^2-%.3fx+%.3f\n",a,re_b,c);
+		printf("Quadratic equations:0=%.2fx^2+%.2fx+%.2f\n",a,b,c);
+		delta=pow(b,2)-4*a*c;
+		
+		if(delta<0)
+		{
+			printf("no real solutions\n");
+			
+			fp5=fopen(fule,"w");
+			if(fp5==NULL)
+			{
+				return;
+			}
+			
+			fprintf(fp5,"file:%s\n",file);
+			fprintf(fp5,"Seek quadratic equations\n");
+			fprintf(fp5,"quadratic equations:0=%.2fx^2+%.2fx+%.2f\n",a,b,c);
+			fprintf(fp5,"Answer:no real solutions\n");
+			
+			fclose(fp5);
+		}
+		else if(delta>0)
+		{
+			x1=(-b+sqrt(delta))/(2*a);
+			x2=(-b-sqrt(delta))/(2*a);
+			
+			printf("Answer:x1=%.2f   x2=%.2f\n",x1,x2);
+			
+			fp5=fopen(fule,"w");
+			if(fp5==NULL)
+			{
+				return;
+			}
+			
+			fprintf(fp5,"file:%s\n",file);
+			fprintf(fp5,"Seek quadratic equations\n");
+			fprintf(fp5,"quadratic equations:0=%.2fx^2+%.2fx+%.2f\n",a,b,c);
+			fprintf(fp5,"Answer:x1=%.2f   x2=%.2f\n",x1,x2);
+			
+			fclose(fp5);
+		}
+		else if(delta==0)
+		{
+			x1=(-b+sqrt(delta))/(2*a);
+			
+			printf("Answer:x1=x2=%.2f\n",x1);
+			
+			fp5=fopen(fule,"w");
+			if(fp5==NULL)
+			{
+				return;
+			}
+			
+			fprintf(fp5,"file:%s\n",file);
+			fprintf(fp5,"Seek quadratic equations\n");
+			fprintf(fp5,"quadratic equations:0=%.2fx^2+%.2fx+%.2f\n",a,b,c);
+			fprintf(fp5,"Answer:x1=x2=%.2f\n",x1);
+			
+			fclose(fp5);
+		}
 	}
-	else if(c<0)
+	else if(b>0&&c<0)
 	{
-		printf("Quadratic function:%.3fx^2+%.3fx-%.3f\n",a,b,re_c);
+		re_c=c*-1;
+		
+		printf("Quadratic equations:0=%.2fx^2+%.2fx-%.2f\n",a,b,re_c);
+		delta=pow(b,2)-4*a*c;
+		
+		if(delta<0)
+		{
+			printf("no real solutions\n");
+			
+			fp5=fopen(fule,"w");
+			if(fp5==NULL)
+			{
+				return;
+			}
+			
+			fprintf(fp5,"file:%s\n",file);
+			fprintf(fp5,"Seek quadratic equations\n");
+			fprintf(fp5,"quadratic equations:0=%.2fx^2+%.2fx-%.2f\n",a,b,re_c);
+			fprintf(fp5,"Answer:no real solutions\n");
+			
+			fclose(fp5);
+		}
+		else if(delta>0)
+		{
+			x1=(-b+sqrt(delta))/(2*a);
+			x2=(-b-sqrt(delta))/(2*a);
+			
+			printf("Answer:x1=%.2f   x2=%.2f\n",x1,x2);
+			
+			fp5=fopen(fule,"w");
+			if(fp5==NULL)
+			{
+				return;
+			}
+			
+			fprintf(fp5,"file:%s\n",file);
+			fprintf(fp5,"Seek quadratic equations\n");
+			fprintf(fp5,"quadratic equations:0=%.2fx^2+%.2fx-%.2f\n",a,b,re_c);
+			fprintf(fp5,"Answer:x1=%.2f   x2=%.2f\n",x1,x2);
+			
+			fclose(fp5);
+		}
+		else if(delta==0)
+		{
+			x1=(-b+sqrt(delta))/(2*a);
+			
+			printf("Answer:x1=x2=%.2f\n",x1);
+			
+			fp5=fopen(fule,"w");
+			if(fp5==NULL)
+			{
+				return;
+			}
+			
+			fprintf(fp5,"file:%s\n",file);
+			fprintf(fp5,"Seek quadratic equations\n");
+			fprintf(fp5,"quadratic equations:0=%.2fx^2+%.2fx-%.2f\n",a,b,re_c);
+			fprintf(fp5,"Answer:x1=x2=%.2f\n",x1);
+			
+			fclose(fp5);
+		}
 	}
-	else
+	else if(b<0&&c>0)
 	{
-		printf("Quadratic function:%.3fx^2+%.3fx+%.3f\n",a,b,c);
-	}
-	
-	Delta_Discrinant=pow(b,2)-4*a*c;
-	formula_2a=2*a;
-	x_1=(-b+sqrt(Delta_Discrinant))/formula_2a;
-	x_2=(-b-sqrt(Delta_Discrinant))/formula_2a; 
-	
-	if(Delta_Discrinant<0)
-	{
-		printf("No real roots\n");
-	}
-	else if(Delta_Discrinant==0)
-	{
-		printf("Answer:x1=x2=%.3f",x_1);
-	}
-	else
-	{
-		printf("Answer:x1=%.3f,x2=%.3f\n",x_1,x_2);	
-	}
-	
-	fp5=fopen(fule,"w");
-	if(fp5==NULL)
-	{
-		return;
-	}
-	
-	fprintf(fp5,"file:%s\n",file);
-	fprintf(fp5,"Derivative of quadratic functions\n");
-	
-	if(b<0&&c<0)
-	{
-		fprintf(fp5,"Quadratic function:%.3fx^2-%.3fx-%.3f\n",a,re_b,re_c);
-	}
-	else if(b<0)
-	{
-		fprintf(fp5,"Quadratic function:%.3fx^2-%.3fx+%.3f\n",a,re_b,c);
-	}
-	else if(c<0)
-	{
-		fprintf(fp5,"Quadratic function:%.3fx^2+%.3fx-%.3f\n",a,b,re_c);
-	}
-	else
-	{
-		fprintf(fp5,"Quadratic function:%.3fx^2+%.3fx+%.3f\n",a,b,c);
-	}
-	
-	if(Delta_Discrinant<0)
-	{
-		fprintf(fp5,"No real roots\n");
-	}
-	else if(Delta_Discrinant==0)
-	{
-		fprintf(fp5,"Answer:x1=x2=%.3f",x_1);
-	}
-	else
-	{
-		fprintf(fp5,"Answer:x1=%.3f,x2=%.3f\n",x_1,x_2);	
-	}
-	fclose(fp5);
-	
+		re_b=b*-1;
+		
+		printf("Quadratic equations:0=%.2fx^2-%.2fx+%.2f\n",a,re_b,c);
+		delta=pow(b,2)-4*a*c;	
+		
+		if(delta<0)
+		{
+			printf("no real solutions\n");
+			
+			fp5=fopen(fule,"w");
+			if(fp5==NULL)
+			{
+				return;
+			}
+			
+			fprintf(fp5,"file:%s\n",file);
+			fprintf(fp5,"Seek quadratic equations\n");
+			fprintf(fp5,"quadratic equations:0=%.2fx^2-%.2fx+%.2f\n",a,re_b,c);
+			fprintf(fp5,"Answer:no real solutions\n");
+			
+			fclose(fp5);
+		}
+		else if(delta>0)
+		{
+			x1=(-b+sqrt(delta))/(2*a);
+			x2=(-b-sqrt(delta))/(2*a);
+			
+			printf("Answer:x1=%.2f   x2=%.2f\n",x1,x2);
+			
+			fp5=fopen(fule,"w");
+			if(fp5==NULL)
+			{
+				return;
+			}
+			
+			fprintf(fp5,"file:%s\n",file);
+			fprintf(fp5,"Seek quadratic equations\n");
+			fprintf(fp5,"quadratic equations:0=%.2fx^2-%.2fx+%.2f\n",a,re_b,c);
+			fprintf(fp5,"Answer:x1=%.2f   x2=%.2f\n",x1,x2);
+			
+			fclose(fp5);
+		}
+		else if(delta==0)
+		{
+			x1=(-b+sqrt(delta))/(2*a);
+			
+			printf("Answer:x1=x2=%.2f\n",x1);
+			
+			fp5=fopen(fule,"w");
+			if(fp5==NULL)
+			{
+				return;
+			}
+			
+			fprintf(fp5,"file:%s\n",file);
+			fprintf(fp5,"Seek quadratic equations\n");
+			fprintf(fp5,"quadratic equations:0=%.2fx^2-%.2fx+%.2f\n",a,re_b,c);
+			fprintf(fp5,"Answer:x1=x2=%.2f\n",x1);
+			
+			fclose(fp5);
+		}
+	} 
 	return;
 }
 
@@ -1686,7 +1872,7 @@ void tools8_Student_Mark_Performance_Statistics(void)
 					Bobble_Sort_eight(ane,num);
 					for(i=0;i<num;i++)
 					{
-						fprintf(fp23,"%d,%lld,%s,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",i+1,ane[i].id,ane[i].name,ane[i].mark1,ane[i].mark2,ane[i].mark3,ane[i].mark4,ane[i].mark5,ane[i].mark6,ane[i].mark7,ane[i].mark8,ane[i].total_score,ane[i].average_score);
+						fprintf(fp23,"%d,%lld,%s,%d,%d,%d,%d,%d,%d,%d,%d,%d,%.3f\n",i+1,ane[i].id,ane[i].name,ane[i].mark1,ane[i].mark2,ane[i].mark3,ane[i].mark4,ane[i].mark5,ane[i].mark6,ane[i].mark7,ane[i].mark8,ane[i].total_score,ane[i].average_score);
 					}
 					fclose(fp23);
 					break;
@@ -3317,7 +3503,7 @@ void tools15_Calculations_Related_To_Line_Sebments(void)
 			
 			formula_x=x2-x1;
 			formula_y=y2-y1;
-			Line_length=sqrt(pow(formula_x,2)-pow(formula_y,2));
+			Line_length=sqrt(pow(formula_x,2)+pow(formula_y,2));
 			if(Line_length<0||Line_length==0)
 			{
 				printf("Such numerical values cannot satisfy practical calculations.\n");

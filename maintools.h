@@ -1,5 +1,5 @@
 /*
- * Hello World ICS Project
+ * maintools.h - MainTools 
  * Copyright (C) 2026 HWmakerAlice
  *
  * This program is free software; you can redistribute it and/or modify
@@ -16,6 +16,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
+
 #ifndef MAIN_TOOLS_H
 #define MAIN_TOOLS_H
 
